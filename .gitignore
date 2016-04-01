@@ -30,3 +30,17 @@
 
 # Debug files
 *.dSYM/
+
+# Vim swap
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+
+# Vim session
+Session.vim
+
+# Vim temporary
+ .netrwhist
+ *~
+
+# Vim auto-generated tag files
+tags
