@@ -1,7 +1,8 @@
 /*
  * ebs.ino
  *
- * Author: Matt Potok
+ * Author: 
+ * Matt Potok
  */
 
 #include "Gyroscope.h"

@@ -29,6 +29,11 @@ class Gyroscope
 {
   public:
     Gyroscope();
+    void itg_write(char i2c_addr, char reg_addr, char data);
+    unsigned char itg_read(char i2c_addr, char reg_addr);
+    int read_x_axis();
+    int read_y_axis();
+    int read_z_axis();
 
   private:
     char id_;
@@ -52,7 +57,7 @@ class Gyroscope
     const char DLPF_FS_SEL_1 = (1<<4);
 
     // IC2 address
-    const char itgAddress = 0x69;
+    const char ITG_ADDR = 0x69;
 };
 
 #endif /* GYROSCO_PE_H */
