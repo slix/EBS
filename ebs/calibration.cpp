@@ -27,12 +27,20 @@ void Ebs::calibrate() {
   int max_input_angle = min_angle;
   float last_hit_sec = 0.0f;
 
+  int last_announced_angle = -99;
+
   while (1) {
     float elapsed_sec = float(millis() - start_time_ms) / 1000;
 
     // Rotate servo continuously
     int angle = int(min_angle + (elapsed_sec * CalibrateConst::ROTATE_DEG_PER_SEC));
     servo.set_angle(angle);
+
+    // For sanity during debugging, print angle we've reached at every multiple of x
+    if (angle % CalibrateConst::ANNOUNCE_INTERVAL == 0 && angle != last_announced_angle) {
+      Serial.println("At angle " + String(angle));
+      last_announced_angle = angle;
+    }
 
     // Detect shifts
     float velocity = gyro.read_z();
@@ -111,12 +119,19 @@ int Ebs::find_min_angle() {
   int min_input_angle = start_angle;
   float last_hit_sec = 0.0f;
 
+  int last_announced_angle = -99;
+
   while (1) {
     float elapsed_sec = float(millis() - start_time_ms) / 1000;
 
     // Rotate continuously but in opposite direction
     int angle = int(start_angle + (elapsed_sec * -CalibrateConst::ROTATE_DEG_PER_SEC));
     servo.set_angle(angle);
+
+    if (angle % CalibrateConst::ANNOUNCE_INTERVAL == 0 && angle != last_announced_angle) {
+      Serial.println("At angle " + String(angle));
+      last_announced_angle = angle;
+    }
 
     // Track min seen
     int reported_angle = servo.get_feedback_angle();

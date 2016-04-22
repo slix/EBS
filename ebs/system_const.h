@@ -27,6 +27,9 @@ namespace CalibrateConst {
   const int MIDDLE_ANGLE = 90;
   // Wait this many seconds for the servo to reach the middle angle
   const float MIDDLE_ROTATE_WAIT = 2.0f;
+
+  // At what multiples of angles to announce the current angle
+  const int ANNOUNCE_INTERVAL = 5;
 }
 
 #endif //SYSTEM_CONST_H
