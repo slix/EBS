@@ -83,6 +83,11 @@ void Ebs::calibrate() {
   // We only want to remember the number of gears we were able to store
   num_gears = min(curr_gear, SystemConst::GEAR_ANGLE_ARR_SIZE);
 
+  // After calibration: put system in a consistent state
+  is_initialized = true;
+  // TODO: Change gears or at least servo angle
+  curr_gear = num_gears - 1;
+
   print_state();
 }
 
