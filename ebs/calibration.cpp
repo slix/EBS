@@ -146,3 +146,4 @@ int Ebs::find_min_angle() {
     }
   }
 }
+

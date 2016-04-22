@@ -32,4 +32,24 @@ namespace CalibrateConst {
   const int ANNOUNCE_INTERVAL = 5;
 }
 
+// The addresses where we store each variable in EEPROM
+namespace StoreConst {
+  // Where to check for correctness and initialization
+  const int ADDR_CHECK = 0;
+  // Correctness value. If anything other than this, corrupted or uninitialized
+  // If you want to start from scratch (new storage format), set this to something else
+  const uint8_t CHECK_VALUE = 42;
+  // By default, EEPROM values are 255. Setting blank things to 255 may save write cycles
+  const uint8_t BLANK_VALUE = 255;
+
+  const int ADDR_CURR_GEAR = 1;
+  const int ADDR_NUM_GEARS = 2;
+  const int ADDR_MIN_ANGLE = 3;
+  const int ADDR_MAX_ANGLE = 4;
+
+  // CRITICAL: MUST BE RIGHT AFTER MAXIMUM ADDRESS SET ABOVE. OVERLAP OR BLANK SPACE PROHIBITED
+  // Where the variable size (num_gears) array starts
+  const int ADDR_ARR_START = 5;
+}
+
 #endif //SYSTEM_CONST_H

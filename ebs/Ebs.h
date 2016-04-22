@@ -19,6 +19,12 @@ class Ebs {
     // Run calibration process to find all gears, TAKES A LONG TIME
     void calibrate();
 
+    // Print full state of shifting system for debugging
+    void print_state();
+
+    // Load state into state variables
+    void load_state();
+
     // Hardware
     Gyroscope gyro;
     FeedbackServo servo;
