@@ -18,7 +18,7 @@ class Ebs {
 
     // Hardware
     Gyroscope gyro;
-    FeedbackServo feedback_servo;
+    FeedbackServo servo;
     Led battery_led;
     Led mode_led;
     Led calibration_led;
