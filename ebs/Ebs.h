@@ -17,7 +17,7 @@ class Ebs {
     void run();
 
     // Hardware
-    Gyro gyro;
+    Gyroscope gyro;
     FeedbackServo feedback_servo;
     Led battery_led;
     Led mode_led;
