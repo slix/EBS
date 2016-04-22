@@ -25,6 +25,10 @@ class Ebs {
     // Load state into state variables
     void load_state();
 
+    // Write state variables into EEPROM
+    // Done such that if nothing has changed, nothing is written
+    void write_state();
+
     // Hardware
     Gyroscope gyro;
     FeedbackServo servo;
