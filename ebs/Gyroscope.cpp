@@ -99,11 +99,11 @@ void Gyroscope::itg_write(char i2c_addr, char reg_addr, char data)
  *   RETURN VALUE: x-axis ADC value from gyroscope
  *   SIDE EFFECTS: none
  */
-int Gyroscope::read_x_axis()
+int Gyroscope::raw_read_x_axis()
 {
   int data=0;
-  data = itgRead(ITG_ADDR, GYRO_XOUT_H)<<8;
-  data |= itgRead(ITG_ADDR, GYRO_XOUT_L);  
+  data = itg_read(ITG_ADDR, GYRO_XOUT_H)<<8;
+  data |= itg_read(ITG_ADDR, GYRO_XOUT_L);
   
   return data;
 }
@@ -116,11 +116,11 @@ int Gyroscope::read_x_axis()
  *   RETURN VALUE: y-axis ADC value from gyroscope
  *   SIDE EFFECTS: none
  */
-int Gyroscope::read_y_axis()
+int Gyroscope::raw_read_y_axis()
 {
   int data=0;
-  data = itgRead(ITG_ADDR, GYRO_YOUT_H)<<8;
-  data |= itgRead(ITG_ADDR, GYRO_YOUT_L);  
+  data = itg_read(ITG_ADDR, GYRO_YOUT_H)<<8;
+  data |= itg_read(ITG_ADDR, GYRO_YOUT_L);
   
   return data;
 }
@@ -133,11 +133,11 @@ int Gyroscope::read_y_axis()
  *   RETURN VALUE: z-axis ADC value from gyroscope
  *   SIDE EFFECTS: none
  */
-int Gyroscope::read_z_axis()
+int Gyroscope::raw_read_z_axis()
 {
   int data=0;
-  data = itgRead(ITG_ADDR, GYRO_ZOUT_H)<<8;
-  data |= itgRead(ITG_ADDR, GYRO_ZOUT_L);  
+  data = itg_read(ITG_ADDR, GYRO_ZOUT_H)<<8;
+  data |= itg_read(ITG_ADDR, GYRO_ZOUT_L);
   
   return data;
 }

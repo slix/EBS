@@ -14,6 +14,7 @@
  *
  * Modified for EBS: 
  * Matt Potok
+ * Peter Kowalczyk
  */
 
 #ifndef GYROSCOPE_H
@@ -29,16 +30,15 @@ class Gyroscope
 {
   public:
     Gyroscope();
-    void itg_write(char i2c_addr, char reg_addr, char data);
-    unsigned char itg_read(char i2c_addr, char reg_addr);
-    int read_x_axis();
-    int read_y_axis();
-    int read_z_axis();
 
   private:
     char id_;
 
-    // Reigster list
+    int raw_read_x_axis();
+    int raw_read_y_axis();
+    int raw_read_z_axis();
+
+    // Register list
     const char WHO_AM_I = 0x00;
     const char SMPLRT_DIV= 0x15;
     const char DLPF_FS = 0x16;
@@ -58,6 +58,9 @@ class Gyroscope
 
     // IC2 address
     const char ITG_ADDR = 0x69;
+
+    void itg_write(char i2c_addr, char reg_addr, char data);
+    unsigned char itg_read(char i2c_addr, char reg_addr);
 };
 
 #endif /* GYROSCO_PE_H */
