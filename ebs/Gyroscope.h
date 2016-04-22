@@ -31,6 +31,10 @@ class Gyroscope
   public:
     Gyroscope();
 
+    // Read z axis rotation and return in degrees per second
+    // Prints an error to the serial console and returns 0.0 if the gyroscope is in a bugged state
+    float read_z();
+
   private:
     char id_;
 
