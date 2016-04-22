@@ -7,7 +7,7 @@
 
 class FeedbackServo {
   public:
-    // Construct FeedbackServo, angles written to attack_pin and feedback retrieved from feedback_pin
+    // Construct FeedbackServo, angles written to attach_pin and feedback retrieved from feedback_pin
     FeedbackServo(int attach_pin, int feedback_pin);
 
     // Set servo to angle
