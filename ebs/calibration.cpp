@@ -88,6 +88,7 @@ void Ebs::calibrate() {
   // TODO: Change gears or at least servo angle
   curr_gear = num_gears - 1;
 
+  write_state();
   print_state();
 }
 
