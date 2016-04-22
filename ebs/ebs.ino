@@ -6,6 +6,7 @@
  */
 
 #include "Gyroscope.h"
+#include "FeedbackServo.h"
 
 void setup()
 {
