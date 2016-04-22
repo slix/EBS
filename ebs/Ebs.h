@@ -4,6 +4,7 @@
 #include "Gyroscope.h"
 #include "FeedbackServo.h"
 #include "Led.h"
+#include "system_const.h"
 
 class Ebs {
   public:
@@ -44,7 +45,7 @@ class Ebs {
     int min_angle; // Min angle servo can physically rotate to
     int max_angle;
     // To shift to a certain gear
-    int* gear_to_shift_angle;
+    int gear_to_shift_angle[SystemConst::GEAR_ANGLE_ARR_SIZE];
 
     // LONG algorithm that rotates the servo and finds minimum physical angle
     int find_min_angle();

@@ -11,8 +11,7 @@ Ebs::Ebs() :
   mode_led(HardwareConst::MODE_LED_PIN),
   calibration_led(HardwareConst::CALIBRATION_LED_PIN),
 
-  is_initialized(false),
-  gear_to_shift_angle(NULL)
+  is_initialized(false)
 {
 }
 
@@ -58,8 +57,6 @@ void Ebs::load_state() {
   if (at_check != StoreConst::CHECK_VALUE) {
     // EEPROM is empty or corrupted
     is_initialized = false;
-    delete[] gear_to_shift_angle;
-    gear_to_shift_angle = NULL;
     Serial.println("No valid state found");
     return;
   }
@@ -72,9 +69,12 @@ void Ebs::load_state() {
   min_angle = EEPROM.read(StoreConst::ADDR_MIN_ANGLE);
   max_angle = EEPROM.read(StoreConst::ADDR_MAX_ANGLE);
 
+  if (num_gears > SystemConst::GEAR_ANGLE_ARR_SIZE) {
+    Serial.println("WARNING: Read failure; num_gears too high. num_gears set to valid value");
+    num_gears = SystemConst::GEAR_ANGLE_ARR_SIZE;
+  }
+
   // Load variable-length array
-  delete[] gear_to_shift_angle;
-  gear_to_shift_angle = new int[num_gears];
   for (int i = 0; i < num_gears; i++) {
     gear_to_shift_angle[i] = EEPROM.read(StoreConst::ADDR_ARR_START + i);
   }
@@ -92,7 +92,7 @@ void Ebs::write_state() {
   }
 
   // Big enough to hold all fixed variables and our array
-  const size_t WRITE_ARR_SIZE = StoreConst::ADDR_ARR_START + CalibrateConst::GEAR_ANGLE_ARR_MAX;
+  const size_t WRITE_ARR_SIZE = StoreConst::ADDR_ARR_START + SystemConst::GEAR_ANGLE_ARR_SIZE;
   uint8_t write_arr[WRITE_ARR_SIZE];
   memset(write_arr, StoreConst::BLANK_VALUE, WRITE_ARR_SIZE);
 
@@ -110,7 +110,7 @@ void Ebs::write_state() {
   write_arr[StoreConst::ADDR_MIN_ANGLE] = (uint8_t) min_angle;
   write_arr[StoreConst::ADDR_MAX_ANGLE] = (uint8_t) max_angle;
   // Fill in variable-size data
-  for (int i = 0; i < num_gears && i < CalibrateConst::GEAR_ANGLE_ARR_MAX; i++) {
+  for (int i = 0; i < num_gears && i < SystemConst::GEAR_ANGLE_ARR_SIZE; i++) {
     write_arr[StoreConst::ADDR_ARR_START + i] = (uint8_t) gear_to_shift_angle[i];
   }
 

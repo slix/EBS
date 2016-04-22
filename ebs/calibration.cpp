@@ -8,12 +8,6 @@ void Ebs::calibrate() {
 
   min_angle = find_min_angle();
 
-  // Prepare gear array
-  if (is_initialized) {
-    delete[] gear_to_shift_angle;
-  }
-  gear_to_shift_angle = new int[CalibrateConst::GEAR_ANGLE_ARR_MAX];
-
   curr_gear = 0;
   // min_angle is good for first gear
   gear_to_shift_angle[curr_gear++] = min_angle;
@@ -51,7 +45,7 @@ void Ebs::calibrate() {
       last_shift = elapsed_sec;
 
       // Check for overflow
-      if (curr_gear >= CalibrateConst::GEAR_ANGLE_ARR_MAX) {
+      if (curr_gear >= SystemConst::GEAR_ANGLE_ARR_SIZE) {
         Serial.println("Gear ignored; exceeded array storage");
         curr_gear++;
       } else {
@@ -87,7 +81,7 @@ void Ebs::calibrate() {
   Serial.println("Calibration complete! " + String(curr_gear) + " gears detected.");
 
   // We only want to remember the number of gears we were able to store
-  num_gears = min(curr_gear, CalibrateConst::GEAR_ANGLE_ARR_MAX);
+  num_gears = min(curr_gear, SystemConst::GEAR_ANGLE_ARR_SIZE);
 
   print_state();
 }

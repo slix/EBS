@@ -20,9 +20,6 @@ namespace CalibrateConst {
   // Servo likely hit physical min/max angle
   const float RANGEFIND_TIMEOUT_THRESHOLD_SECONDS = 2.5f;
 
-  // Max number of gears our program will store
-  const int GEAR_ANGLE_ARR_MAX = 15;
-
   // An angle we know is physically reachable
   const int MIDDLE_ANGLE = 90;
   // Wait this many seconds for the servo to reach the middle angle
@@ -50,6 +47,11 @@ namespace StoreConst {
   // CRITICAL: MUST BE RIGHT AFTER MAXIMUM ADDRESS SET ABOVE. OVERLAP OR BLANK SPACE PROHIBITED
   // Where the variable size (num_gears) array starts
   const int ADDR_ARR_START = 5;
+}
+
+namespace SystemConst {
+  // Max number of gears our program will store
+  const int GEAR_ANGLE_ARR_SIZE = 15;
 }
 
 #endif //SYSTEM_CONST_H
