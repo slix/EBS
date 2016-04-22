@@ -67,4 +67,4 @@ class Gyroscope
     unsigned char itg_read(char i2c_addr, char reg_addr);
 };
 
-#endif /* GYROSCO_PE_H */
+#endif /* GYROSCOPE_H */
