@@ -16,7 +16,6 @@ class Ebs {
     // Run main loop
     void run();
 
-  private:
     Gyro gyro;
     FeedbackServo feedback_servo;
 
