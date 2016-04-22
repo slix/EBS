@@ -16,6 +16,9 @@ class Ebs {
     // Run main loop
     void run();
 
+    // Run calibration process to find all gears, TAKES A LONG TIME
+    void calibrate();
+
     // Hardware
     Gyroscope gyro;
     FeedbackServo servo;
@@ -28,10 +31,13 @@ class Ebs {
     bool is_initialized; // If false, no data in eerom. Below variables invalid.
     int curr_gear;
     int num_gears;
+    int min_angle; // Min angle servo can physically rotate to
+    int max_angle;
     // To shift to a certain gear
-    int gear_to_shift_angle[];
-    // Best angle while at a certain gear
-    int gear_to_ideal_angle[];
+    int* gear_to_shift_angle;
+
+    // LONG algorithm that rotates the servo and finds minimum physical angle
+    int find_min_angle();
 };
 
 

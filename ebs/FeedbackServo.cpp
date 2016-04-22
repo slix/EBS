@@ -1,5 +1,7 @@
 #include "FeedbackServo.h"
 
+#include <Arduino.h>
+
 FeedbackServo::FeedbackServo(int attach_pin, int feedback_pin_) {
   // Iniitalize writable servo
   write_servo.attach(attach_pin);

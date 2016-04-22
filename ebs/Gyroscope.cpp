@@ -7,6 +7,8 @@
 
 #include "Gyroscope.h"
 
+#include <Wire.h>
+
 /*
  * Gyroscope::Gyroscope
  *   DESCRIPTION: constructor

@@ -17,5 +17,9 @@ void Ebs::start() {
 }
 
 void Ebs::run() {
-
+  calibrate();
+  // And now nothing
+  while (1) {
+    delay(1000);
+  }
 }
