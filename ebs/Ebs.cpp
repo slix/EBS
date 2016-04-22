@@ -36,7 +36,7 @@ void Ebs::print_state() {
 
   // If not initialized, these values are all garbage
   if (is_initialized) {
-    Serial.println("Current gear: " + String(curr_gear));
+    Serial.println("Current gear (1-indexed): " + String(curr_gear + 1));
     Serial.println("Min angle: " + String(min_angle));
     Serial.println("Max angle: " + String(max_angle));
     Serial.println("Num gears: " + String(num_gears));
