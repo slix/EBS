@@ -59,7 +59,7 @@ void Ebs::calibrate() {
       last_hit_sec = elapsed_sec;
     }
 
-    // No updated min for a while means we reached min
+    // No updated max for a while means we reached max
     if (elapsed_sec - last_hit_sec >= CalibrateConst::RANGEFIND_TIMEOUT_THRESHOLD_SECONDS) {
       Serial.println("Detected max physical servo angle at " + String(max_input_angle));
       max_angle = max_input_angle;
