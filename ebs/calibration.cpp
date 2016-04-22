@@ -85,18 +85,11 @@ void Ebs::calibrate() {
   // CALIBRATION COMPLETE
   // ----------
   Serial.println("Calibration complete! " + String(curr_gear) + " gears detected.");
-  Serial.println("Min angle: " + String(min_angle));
-  Serial.println("Max angle: " + String(max_angle));
 
+  // We only want to remember the number of gears we were able to store
   num_gears = min(curr_gear, CalibrateConst::GEAR_ANGLE_ARR_MAX);
 
-  // Print gear table for debugging
-  Serial.println("------------------");
-  for(int i = 0; i < num_gears; i++) {
-    // One-index for the user
-    Serial.println(String(i+1) + "\t" + gear_to_shift_angle[i]);
-  }
-  Serial.println("------------------");
+  print_state();
 }
 
 
