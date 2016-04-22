@@ -44,3 +44,8 @@ Session.vim
 
 # Vim auto-generated tag files
 tags
+
+# Some CLion stuff that nobody else in my group needs
+.idea/
+CMakeLists.txt
+cmake/
