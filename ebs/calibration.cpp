@@ -102,6 +102,9 @@ int Ebs::find_min_angle() {
 
   // Start at angle we know is reachable
   int start_angle = CalibrateConst::MIDDLE_ANGLE;
+  servo.set_angle(start_angle);
+  delay(CalibrateConst::MIDDLE_ROTATE_WAIT * 1000);
+
   unsigned long start_time_ms = millis();
 
   int min_reported_angle = 999;
