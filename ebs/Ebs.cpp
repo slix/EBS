@@ -16,7 +16,6 @@ Ebs::Ebs() :
 }
 
 void Ebs::start() {
-  print_state();
   load_state();
   print_state();
 }
