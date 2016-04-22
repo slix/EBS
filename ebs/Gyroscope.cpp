@@ -20,11 +20,11 @@ Gyroscope::Gyroscope()
   // Read WHO_AM_I register
   id_ = itg_read(WHO_AM_I, 0x00);
 
-  // Configure gyroscope settings
+  // Gyroscope scale +/-2000 degrees per second (default)
   itg_write(ITG_ADDR, DLPF_FS, (DLPF_FS_SEL_0|DLPF_FS_SEL_1|DLPF_CFG_0));
 
-  //Set the sample rate to 100 hz
-  itg_write(ITG_ADDR, SMPLRT_DIV, 9);
+  // Sample rate 1KHz (this should match up with "0", "9" is a much lower sample rate)
+  itg_write(ITG_ADDR, SMPLRT_DIV, 0);
 }
 
 /*
