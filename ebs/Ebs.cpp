@@ -12,7 +12,8 @@ Ebs::Ebs() :
   mode_led(HardwareConst::MODE_LED_PIN),
   calibration_led(HardwareConst::CALIBRATION_LED_PIN),
 
-  is_initialized(false)
+  is_initialized(false),
+  mode(NORMAL) // Always start in normal mode, other modes make no sense
 {
 }
 

@@ -5,6 +5,7 @@
 #include "FeedbackServo.h"
 #include "Led.h"
 #include "system_const.h"
+#include "ebs_mode.h"
 
 class Ebs {
   public:
@@ -38,6 +39,9 @@ class Ebs {
     Led calibration_led;
 
   private:
+    // Current mode of operation
+    EbsMode mode;
+
     // State
     bool is_initialized; // If false, no data in eerom. Below variables invalid.
     int curr_gear;
