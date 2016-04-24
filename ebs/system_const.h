@@ -4,6 +4,9 @@
 // Enable Serial.h. Disable for the attiny, where it is not available
 #define USE_SERIAL 1
 
+// Enable TinyWires instead of Wire.h (should be 1 on attiny)
+#define USE_TINYWIRES 1
+
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
   const float ROTATE_DEG_PER_SEC = 3.0f;

@@ -21,7 +21,6 @@
 #define GYROSCOPE_H
 
 #include <Arduino.h>
-#include <Wire.h>
 
 /*
  * Class for the ITG-3200 gyroscope

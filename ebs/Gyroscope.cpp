@@ -6,7 +6,7 @@
  */
 
 #include "Gyroscope.h"
-#include <Wire.h>
+#include "internal_wire.h"
 #include "internal_serial.h"
 
 /*
