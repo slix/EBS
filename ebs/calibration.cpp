@@ -73,6 +73,8 @@ void Ebs::calibrate() {
       max_angle = CalibrateConst::ABSOLUTE_MAX_SERVO_ANGLE;
       break;
     }
+
+    update_leds();
   }
 
   // ----------
@@ -145,6 +147,8 @@ int Ebs::find_min_angle() {
                      + " without triggering timeout threshold");
       return CalibrateConst::ABSOLUTE_MIN_SERVO_ANGLE;
     }
+
+    update_leds();
   }
 }
 
