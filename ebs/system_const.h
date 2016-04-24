@@ -1,6 +1,9 @@
 #ifndef SYSTEM_CONST_H
 #define SYSTEM_CONST_H
 
+// Enable Serial.h. Disable for the attiny, where it is not available
+#define USE_SERIAL 1
+
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
   const float ROTATE_DEG_PER_SEC = 3.0f;

@@ -6,7 +6,7 @@
  * Peter Kowalczyk
  */
 
-#include <HardwareSerial.h>
+#include "internal_serial.h"
 #include "Ebs.h"
 
 void setup()

@@ -1,4 +1,4 @@
-#include <HardwareSerial.h>
+#include "internal_serial.h"
 #include <EEPROM.h>
 #include "Ebs.h"
 #include "hardware_const.h"

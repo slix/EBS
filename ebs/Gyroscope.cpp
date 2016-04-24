@@ -6,8 +6,8 @@
  */
 
 #include "Gyroscope.h"
-
 #include <Wire.h>
+#include "internal_serial.h"
 
 /*
  * Gyroscope::Gyroscope
