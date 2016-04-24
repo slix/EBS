@@ -140,7 +140,7 @@ int Gyroscope::raw_read_z_axis()
 float Gyroscope::read_z() {
   int raw_z = raw_read_z_axis();
   if (raw_z == -4352) {
-    Serial.println("POSSIBLE GYRO READ ERROR, FATAL IF REPEATING CONTINUALLY");
+    PRINTLN("POSSIBLE GYRO READ ERROR, FATAL IF REPEATING CONTINUALLY");
     return 0.0f;
   }
   // Scale to degrees/second

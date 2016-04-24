@@ -29,34 +29,34 @@ void Ebs::run() {
 }
 
 void Ebs::print_state() {
-  Serial.println("EBS STATE");
-  Serial.println("------------------");
-  Serial.println("Is initialized: " + String(is_initialized));
+  PRINTLN("EBS STATE");
+  PRINTLN("------------------");
+  PRINTLN("Is initialized: " + String(is_initialized));
 
   // If not initialized, these values are all garbage
   if (is_initialized) {
-    Serial.println("Current gear (1-indexed): " + String(curr_gear + 1));
-    Serial.println("Min angle: " + String(min_angle));
-    Serial.println("Max angle: " + String(max_angle));
-    Serial.println("Num gears: " + String(num_gears));
+    PRINTLN("Current gear (1-indexed): " + String(curr_gear + 1));
+    PRINTLN("Min angle: " + String(min_angle));
+    PRINTLN("Max angle: " + String(max_angle));
+    PRINTLN("Num gears: " + String(num_gears));
 
     // Print gear table for debugging
-    Serial.println("------------------");
+    PRINTLN("------------------");
     for (int i = 0; i < num_gears; i++) {
       // One-index for the user
-      Serial.println(String(i + 1) + ":\t" + gear_to_shift_angle[i]);
+      PRINTLN(String(i + 1) + ":\t" + gear_to_shift_angle[i]);
     }
   }
-  Serial.println("------------------");
+  PRINTLN("------------------");
 }
 
 void Ebs::load_state() {
-  Serial.println("Loading state from EEPROM...");
+  PRINTLN("Loading state from EEPROM...");
   uint8_t at_check = EEPROM.read(StoreConst::ADDR_CHECK);
   if (at_check != StoreConst::CHECK_VALUE) {
     // EEPROM is empty or corrupted
     is_initialized = false;
-    Serial.println("No valid state found");
+    PRINTLN("No valid state found");
     return;
   }
 
@@ -69,7 +69,7 @@ void Ebs::load_state() {
   max_angle = EEPROM.read(StoreConst::ADDR_MAX_ANGLE);
 
   if (num_gears > SystemConst::GEAR_ANGLE_ARR_SIZE) {
-    Serial.println("WARNING: Read failure; num_gears too high. num_gears set to valid value");
+    PRINTLN("WARNING: Read failure; num_gears too high. num_gears set to valid value");
     num_gears = SystemConst::GEAR_ANGLE_ARR_SIZE;
   }
 
@@ -78,11 +78,11 @@ void Ebs::load_state() {
     gear_to_shift_angle[i] = EEPROM.read(StoreConst::ADDR_ARR_START + i);
   }
 
-  Serial.println("Read entire state");
+  PRINTLN("Read entire state");
 }
 
 void Ebs::write_state() {
-  Serial.println("Writing state into EEPROM");
+  PRINTLN("Writing state into EEPROM");
 
   // Special case: uninitialized, so write just one value to signal this
   if (!is_initialized) {
@@ -97,7 +97,7 @@ void Ebs::write_state() {
 
   // Make sure EEPROM is big enough for our data
   if (EEPROM.length() < WRITE_ARR_SIZE) {
-    Serial.println("Error writing state: EEPROM too small");
+    PRINTLN("Error writing state: EEPROM too small");
     return;
   }
 

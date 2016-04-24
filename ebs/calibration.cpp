@@ -3,8 +3,8 @@
 #include "system_const.h"
 
 void Ebs::calibrate() {
-  Serial.println("Starting calibration...");
-  Serial.println("Rotate the pedals until the board LED turns off!");
+  PRINTLN("Starting calibration...");
+  PRINTLN("Rotate the pedals until the board LED turns off!");
 
   min_angle = find_min_angle();
 
@@ -32,7 +32,7 @@ void Ebs::calibrate() {
 
     // For sanity during debugging, print angle we've reached at every multiple of x
     if (angle % CalibrateConst::ANNOUNCE_INTERVAL == 0 && angle != last_announced_angle) {
-      Serial.println("At angle " + String(angle));
+      PRINTLN("At angle " + String(angle));
       last_announced_angle = angle;
     }
 
@@ -40,13 +40,13 @@ void Ebs::calibrate() {
     float velocity = gyro.read_z();
     if ((last_shift + CalibrateConst::SHIFT_COOLDOWN_SEC) < elapsed_sec
         && abs(velocity) >= CalibrateConst::SHIFT_DETECT_THRESHOLD) {
-      Serial.println("Shift detected for gear " + String(curr_gear+1) + " at servo angle "
+      PRINTLN("Shift detected for gear " + String(curr_gear+1) + " at servo angle "
                      + String(angle) + " from gyro velocity " + String(velocity));
       last_shift = elapsed_sec;
 
       // Check for overflow
       if (curr_gear >= SystemConst::GEAR_ANGLE_ARR_SIZE) {
-        Serial.println("Gear ignored; exceeded array storage");
+        PRINTLN("Gear ignored; exceeded array storage");
         curr_gear++;
       } else {
         gear_to_shift_angle[curr_gear++] = angle;
@@ -63,12 +63,12 @@ void Ebs::calibrate() {
 
     // No updated max for a while means we reached max
     if (elapsed_sec - last_hit_sec >= CalibrateConst::RANGEFIND_TIMEOUT_THRESHOLD_SECONDS) {
-      Serial.println("Detected max physical servo angle at " + String(max_input_angle));
+      PRINTLN("Detected max physical servo angle at " + String(max_input_angle));
       max_angle = max_input_angle;
       break;
     }
     if (angle >= CalibrateConst::ABSOLUTE_MAX_SERVO_ANGLE) {
-      Serial.println("Reached max physical servo angle at " + String(angle)
+      PRINTLN("Reached max physical servo angle at " + String(angle)
                      + " without triggering timeout threshold");
       max_angle = CalibrateConst::ABSOLUTE_MAX_SERVO_ANGLE;
       break;
@@ -78,7 +78,7 @@ void Ebs::calibrate() {
   // ----------
   // CALIBRATION COMPLETE
   // ----------
-  Serial.println("Calibration complete! " + String(curr_gear) + " gears detected.");
+  PRINTLN("Calibration complete! " + String(curr_gear) + " gears detected.");
 
   // We only want to remember the number of gears we were able to store
   num_gears = min(curr_gear, SystemConst::GEAR_ANGLE_ARR_SIZE);
@@ -122,7 +122,7 @@ int Ebs::find_min_angle() {
     servo.set_angle(angle);
 
     if (angle % CalibrateConst::ANNOUNCE_INTERVAL == 0 && angle != last_announced_angle) {
-      Serial.println("At angle " + String(angle));
+      PRINTLN("At angle " + String(angle));
       last_announced_angle = angle;
     }
 
@@ -136,11 +136,11 @@ int Ebs::find_min_angle() {
 
     // No updated min for a while means we reached min
     if (elapsed_sec - last_hit_sec >= CalibrateConst::RANGEFIND_TIMEOUT_THRESHOLD_SECONDS) {
-      Serial.println("Detected min physical servo angle at " + String(min_input_angle));
+      PRINTLN("Detected min physical servo angle at " + String(min_input_angle));
       return min_input_angle;
     }
     if (angle <= CalibrateConst::ABSOLUTE_MIN_SERVO_ANGLE) {
-      Serial.println("Reached min physical servo angle at " + String(angle)
+      PRINTLN("Reached min physical servo angle at " + String(angle)
                      + " without triggering timeout threshold");
       return CalibrateConst::ABSOLUTE_MIN_SERVO_ANGLE;
     }
