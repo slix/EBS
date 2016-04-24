@@ -60,6 +60,9 @@ namespace StoreConst {
   // CRITICAL: MUST BE RIGHT AFTER MAXIMUM ADDRESS SET ABOVE. OVERLAP OR BLANK SPACE PROHIBITED
   // Where the variable size (num_gears) array starts
   const int ADDR_ARR_START = 5;
+
+  // This prevents the gyro from glitching out during the loop
+  const unsigned long LOOP_DELAY_SEC = 10;
 }
 
 namespace SystemConst {
