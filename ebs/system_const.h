@@ -1,6 +1,8 @@
 #ifndef SYSTEM_CONST_H
 #define SYSTEM_CONST_H
 
+#include <avr/io.h>
+
 #define ATTINY_MODE 1
 
 // Enable Serial.h. Disable for the attiny, where it is not available
