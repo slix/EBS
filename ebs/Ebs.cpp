@@ -159,3 +159,22 @@ bool Ebs::is_battery_low() {
   // Use LOW_BATTERY_THRESHOLD_VOLTS
   return true;
 }
+
+void Ebs::toggle_mode() {
+  if (mode == CALIBRATION) {
+    // This should not have been called; calibration is different
+    PRINTLN("Failed mode change: no change allowed during calibration");
+    return;
+  }
+
+  if (mode == NORMAL) {
+    mode = MANUAL;
+    PRINTLN("Changed to manual mode");
+  } else if (mode == MANUAL) {
+    mode = NORMAL;
+    PRINTLN("Changed to normal mode");
+  }
+
+  // LED should be on for the next 3000ms
+  time_stop_mode_led_glow = millis() + SystemConst::MODE_LED_TIME_GLOW;
+}
