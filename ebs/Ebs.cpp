@@ -45,7 +45,18 @@ void Ebs::run() {
   update_leds();
   while (1) {
 
-    // TODO: check interrupt request variables
+    // Check interrupt request variables
+    if (requested_calibration || requested_mode_change || requested_upshift || requested_downshift) {
+      handle_request();
+
+      // If we handle a request, we want to clear the flag so that we don't handle it on next loop
+      // If there's some other unhandled request after we handled a request, the button got pressed during
+      // the action. The user likely didn't mean to queue another action, so we clear it too.
+      requested_calibration = 0;
+      requested_mode_change = 0;
+      requested_upshift = 0;
+      requested_downshift = 0;
+    }
 
     // LED handling while not in action
     update_leds();
@@ -257,5 +268,34 @@ void Ebs::productive_delay(unsigned long wait_ms) {
   while (millis() < stop_delay_at) {
     update_leds();
     delay(1);
+  }
+}
+
+void Ebs::handle_request() {
+  if (requested_calibration) {
+    mode = CALIBRATION;
+    calibrate();
+    // Normal is the natural mode to return to
+    mode = NORMAL;
+  }
+  else if (requested_mode_change) {
+    toggle_mode();
+  }
+
+  else if (requested_upshift) {
+    // Depends on mode
+    if (mode == NORMAL) {
+      upshift();
+    } else if (mode == MANUAL) {
+      manual_increase();
+    }
+  }
+  else if (requested_downshift) {
+    // Depends on mode
+    if (mode == NORMAL) {
+      downshift();
+    } else if (mode == MANUAL) {
+      manual_decrease();
+    }
   }
 }

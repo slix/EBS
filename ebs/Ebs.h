@@ -82,6 +82,10 @@ class Ebs {
 
     // Change gear to to_gear from from_gear using overshooting
     void change_gear(int to_gear, int from_gear);
+
+    // Call when one of the request variables is true
+    // Executes a given action based on user input
+    void handle_request();
 };
 
 
