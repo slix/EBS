@@ -87,6 +87,7 @@ void Ebs::calibrate() {
   // After calibration: put system in a consistent state (at last gear)
   curr_gear = num_gears - 1;
   servo.set_angle(gear_to_shift_angle[curr_gear]);
+  delay(CalibrateConst::END_ADJUST_WAIT * 1000);
   is_initialized = true;
 
   write_state();

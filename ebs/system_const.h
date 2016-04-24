@@ -35,6 +35,9 @@ namespace CalibrateConst {
   // Wait this many seconds for the servo to reach the middle angle
   const float MIDDLE_ROTATE_WAIT = 2.0f;
 
+  // Wait this many seconds for the servo to re-adjust itself to the last gear after end of calibration
+  const float END_ADJUST_WAIT = 1.0f;
+
   // At what multiples of angles to announce the current angle
   const int ANNOUNCE_INTERVAL = 5;
 }
