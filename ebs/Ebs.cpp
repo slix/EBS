@@ -13,6 +13,12 @@ Ebs::Ebs() :
   calibration_led(HardwareConst::CALIBRATION_LED_PIN),
 
   is_initialized(false),
+
+  // Default min/max servo angles for manual mode if loading state fails
+  // Guarantees that user can shift even if microcontroller crashes and loses EEPROM while riding
+  min_angle(CalibrateConst::ABSOLUTE_MIN_SERVO_ANGLE),
+  max_angle(CalibrateConst::ABSOLUTE_MAX_SERVO_ANGLE),
+
   mode(NORMAL) // Always start in normal mode, other modes make no sense
 {
 }
@@ -24,6 +30,15 @@ void Ebs::start() {
 }
 
 void Ebs::run() {
+  // Start bike in default state
+  if (is_initialized) {
+    // Bike is already in some gear, set servo to that angle
+    servo.set_angle(gear_to_shift_angle[curr_gear]);
+  } else {
+    // Middle angle is likely to be in range. If user must, they can use manual mode
+    servo.set_angle(CalibrateConst::MIDDLE_ANGLE);
+  }
+
   // The main loop has to check for requested changes (via interrupts)
   // and execute the requested functions.
   // In addition when no action is in progress, it must keep the LEDs blinking correctly
