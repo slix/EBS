@@ -2,8 +2,8 @@
 #define EBS_HARDWARE_CONST_H
 
 namespace HardwareConst {
-  const int SERVO_ATTACH_PIN = 9;
-  const int SERVO_FEEDBACK_PIN = A0;
+  const int SERVO_ATTACH_PIN = 8;
+  const int SERVO_FEEDBACK_PIN = A7;
 
   const int BATTERY_LED_PIN = 7;
   const int MODE_LED_PIN = 9;
