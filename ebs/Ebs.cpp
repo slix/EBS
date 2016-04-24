@@ -3,6 +3,7 @@
 #include "Ebs.h"
 #include "hardware_const.h"
 #include "system_const.h"
+#include "interrupts.h"
 
 Ebs::Ebs() :
   gyro(),
@@ -16,6 +17,7 @@ Ebs::Ebs() :
 }
 
 void Ebs::start() {
+  setup_interrupts();
   load_state();
   print_state();
 }

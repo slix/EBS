@@ -9,6 +9,7 @@ namespace HardwareConst {
   const int MODE_LED_PIN = 9;
   const int CALIBRATION_LED_PIN = -1;
 
+  // These don't get used due to the complexity of bitshifting for interrupts
   const int DOWN_BUTTON_PIN = 10;
   const int UP_BUTTON_PIN = 8;
   const int CALIBRATION_BUTTON_PIN = 1;
