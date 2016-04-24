@@ -31,10 +31,10 @@ class Ebs {
     // Done such that if nothing has changed, nothing is written
     void write_state();
 
-    // Call AS OFTEN AS POSSIBLE. Blinks LEDs using the current time
+    // Call AS OFTEN AS POSSIBLE. Blinks LEDs using the current time and updates servo
     // Should be called on every iteration of every loop in the program
     // Should be called during every delay: see productive_delay()
-    void update_leds();
+    void update_often();
 
     // Use instead of delay() to update LEDs during the delay
     void productive_delay(unsigned long wait_ms);
@@ -86,6 +86,8 @@ class Ebs {
     // Call when one of the request variables is true
     // Executes a given action based on user input
     void handle_request();
+
+    void update_leds();
 };
 
 

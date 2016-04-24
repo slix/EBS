@@ -11,6 +11,9 @@
 // Enable TinyWires instead of Wire.h (should be 1 on attiny)
 #define USE_TINYWIRES ATTINY_MODE
 
+// Enable SoftwareServo instead (1 on attiny)
+#define USE_SOFTWARESERVO ATTINY_MODE
+
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
   const float ROTATE_DEG_PER_SEC = 3.0f;

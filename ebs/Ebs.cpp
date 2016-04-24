@@ -42,7 +42,7 @@ void Ebs::run() {
   // The main loop has to check for requested changes (via interrupts)
   // and execute the requested functions.
   // In addition when no action is in progress, it must keep the LEDs blinking correctly
-  update_leds();
+  update_often();
 
   // FIXME: For testing, always enable calibration
   requested_calibration = 1;
@@ -63,7 +63,7 @@ void Ebs::run() {
     }
 
     // LED handling while not in action
-    update_leds();
+    update_often();
 
     // Avoid max CPU usage while idle
     delay(1);
@@ -157,6 +157,11 @@ void Ebs::write_state() {
 
   // Write without cost if data hasn't changed
   EEPROM.put(StoreConst::ADDR_CHECK, write_arr);
+}
+
+void Ebs::update_often() {
+  servo.refresh();
+  update_leds();
 }
 
 void Ebs::update_leds() {
@@ -267,10 +272,10 @@ void Ebs::manual_decrease() {
 
 void Ebs::productive_delay(unsigned long wait_ms) {
   unsigned long stop_delay_at = millis() + wait_ms;
-  // Just in case this time has already passed, we still want to update LEDs
-  update_leds();
+  // Just in case this time has already passed, we still want to update everything
+  update_often();
   while (millis() < stop_delay_at) {
-    update_leds();
+    update_often();
     delay(1);
   }
 }

@@ -29,3 +29,9 @@ int FeedbackServo::get_feedback_angle() {
 int FeedbackServo::get_last_written_angle() {
   return last_written_angle;
 }
+
+void FeedbackServo::refresh() {
+  #if USE_SOFTWARESERVO
+  write_servo.refresh();
+  #endif
+}

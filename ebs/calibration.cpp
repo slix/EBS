@@ -74,7 +74,7 @@ void Ebs::calibrate() {
       break;
     }
 
-    update_leds();
+    update_often();
     productive_delay(CalibrateConst::LOOP_DELAY_MS);
   }
 
@@ -149,7 +149,7 @@ int Ebs::find_min_angle() {
       return CalibrateConst::ABSOLUTE_MIN_SERVO_ANGLE;
     }
 
-    update_leds();
+    update_often();
   }
 }
 

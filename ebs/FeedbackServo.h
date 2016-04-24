@@ -3,7 +3,7 @@
 #ifndef SERVO_H
 #define SERVO_H
 
-#include <Servo.h>
+#include "internal_servo.h"
 
 class FeedbackServo {
   public:
@@ -18,6 +18,9 @@ class FeedbackServo {
 
     // Get last written angle (for remembering previously set angle easily)
     int get_last_written_angle();
+
+    // Call this often to update the servo
+    void refresh();
 
   private:
     // Arduino Servo only supports writing
