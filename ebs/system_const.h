@@ -81,6 +81,9 @@ namespace SystemConst {
   const int ANGLE_OVERSHOOT_BACKWARD_BY = 6;
   // Hold overshoot position for this many seconds before returning
   const float HOLD_OVERSHOOT_SEC = 1.0f;
+
+  // How many degrees to change in manual mode
+  const int MANUAL_MODE_DEGREE_CHANGE = 2;
 }
 
 #endif //SYSTEM_CONST_H

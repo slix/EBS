@@ -236,3 +236,16 @@ void Ebs::change_gear(int to_gear, int from_gear) {
   servo.set_angle(final_angle);
 }
 
+void Ebs::manual_increase() {
+  int old_angle = servo.get_last_written_angle();
+  int new_angle = old_angle + SystemConst::MANUAL_MODE_DEGREE_CHANGE;
+
+  servo.set_angle(constrain(new_angle, min_angle, max_angle));
+}
+
+void Ebs::manual_decrease() {
+  int old_angle = servo.get_last_written_angle();
+  int new_angle = old_angle - SystemConst::MANUAL_MODE_DEGREE_CHANGE;
+
+  servo.set_angle(constrain(new_angle, min_angle, max_angle));
+}

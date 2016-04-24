@@ -44,6 +44,10 @@ class Ebs {
     void upshift();
     void downshift();
 
+    // Used in manual mode to increase and decrease servo by constant degree on each button press
+    void manual_increase();
+    void manual_decrease();
+
     // Hardware
     Gyroscope gyro;
     FeedbackServo servo;

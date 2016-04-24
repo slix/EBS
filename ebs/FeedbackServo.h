@@ -16,11 +16,16 @@ class FeedbackServo {
     // Get reported angle from servo feedback
     int get_feedback_angle();
 
+    // Get last written angle (for remembering previously set angle easily)
+    int get_last_written_angle();
+
   private:
     // Arduino Servo only supports writing
     Servo write_servo;
 
     int feedback_pin;
+
+    int last_written_angle;
 };
 
 #endif
