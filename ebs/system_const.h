@@ -1,11 +1,13 @@
 #ifndef SYSTEM_CONST_H
 #define SYSTEM_CONST_H
 
+#define ATTINY_MODE 1
+
 // Enable Serial.h. Disable for the attiny, where it is not available
-#define USE_SERIAL 1
+#define USE_SERIAL !ATTINY_MODE
 
 // Enable TinyWires instead of Wire.h (should be 1 on attiny)
-#define USE_TINYWIRES 1
+#define USE_TINYWIRES ATTINY_MODE
 
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
