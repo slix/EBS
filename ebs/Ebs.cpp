@@ -223,7 +223,7 @@ void Ebs::downshift() {
   }
 
   if (curr_gear == 0) {
-    PRINTLN("Already at min gear, cannot downshift")
+    PRINTLN("Already at min gear, cannot downshift");
   }
 
   change_gear(curr_gear - 1, curr_gear);
