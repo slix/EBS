@@ -82,4 +82,15 @@ ISR(PCINT0_vect) {
     up_dep = 0;
     up_unp = 0;
   }
+
+  // Detecting both dwn_btn and up_btn depress
+  // Make sure unpress doesn't cause shifts
+  // TODO: @mattpotok Can you make sure I did this right?
+  if (up_dep && dwn_dep) {
+    requested_mode_change = 1;
+    up_dep = 0;
+    dwn_dep = 0;
+  }
+
+  // TODO: Calibration button handling
 }
