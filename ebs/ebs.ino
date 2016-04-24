@@ -7,7 +7,10 @@
  */
 
 #include "internal_serial.h"
+#include "hardware_const.h"
 #include "Ebs.h"
+
+
 
 void setup()
 {
@@ -16,11 +19,29 @@ void setup()
   #if USE_SERIAL == 1
   Serial.begin(9600);
   #endif
+  PRINTLN("setup");
+
+  // Debugging
+ // pinMode(HardwareConst::CALIBRATION_LED_PIN, OUTPUT);
 }
 
 void loop()
 {
-  Ebs ebs;
-  ebs.start();
-  ebs.run();
+//  // Debugging
+Ebs ebs;
+  digitalWrite(HardwareConst::CALIBRATION_LED_PIN, HIGH);
+  delay(1000);
+  digitalWrite(HardwareConst::CALIBRATION_LED_PIN, LOW);
+  delay(1000);
+  
+  
+ebs.start();
+//
+//  // Debugging
+digitalWrite(HardwareConst::CALIBRATION_LED_PIN, HIGH);
+delay(1000);
+digitalWrite(HardwareConst::CALIBRATION_LED_PIN, LOW);
+delay(1000);
+  
+ebs.run();
 }

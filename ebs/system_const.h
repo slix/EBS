@@ -3,7 +3,7 @@
 
 #include <avr/io.h>
 
-#define ATTINY_MODE 1
+#define ATTINY_MODE 0
 
 // Enable Serial.h. Disable for the attiny, where it is not available
 #define USE_SERIAL !ATTINY_MODE

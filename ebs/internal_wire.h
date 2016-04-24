@@ -10,7 +10,7 @@
 #if USE_TINYWIRES == 0
 #include "Wire.h"
 #else
-#include "lib/TinyWireM.h"
+//#include "lib/TinyWireM.h"
 #define Wire TinyWireM
 #endif
 

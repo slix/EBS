@@ -16,6 +16,7 @@
  */
 Gyroscope::Gyroscope()
 {
+  PRINTLN("startgyro");
   // Initialize IC2 communication
   Wire.begin();
    
@@ -27,6 +28,7 @@ Gyroscope::Gyroscope()
 
   // Sample rate 1KHz (this should match up with "0", "9" is a much lower sample rate)
   itg_write(ITG_ADDR, SMPLRT_DIV, 0);
+  PRINTLN("endgyro");
 }
 
 /*

@@ -43,6 +43,10 @@ void Ebs::run() {
   // and execute the requested functions.
   // In addition when no action is in progress, it must keep the LEDs blinking correctly
   update_leds();
+
+  // FIXME remove me in the future
+  requested_calibration = 1;
+  
   while (1) {
 
     // Check interrupt request variables
@@ -223,7 +227,7 @@ void Ebs::downshift() {
   }
 
   if (curr_gear == 0) {
-    PRINTLN("Already at min gear, cannot downshift")
+    PRINTLN("Already at min gear, cannot downshift");
   }
 
   change_gear(curr_gear - 1, curr_gear);

@@ -75,6 +75,7 @@ void Ebs::calibrate() {
     }
 
     update_leds();
+    productive_delay(10);
   }
 
   // ----------
