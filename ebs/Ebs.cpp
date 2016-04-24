@@ -43,6 +43,10 @@ void Ebs::run() {
   // and execute the requested functions.
   // In addition when no action is in progress, it must keep the LEDs blinking correctly
   update_leds();
+
+  // FIXME: For testing, always enable calibration
+  requested_calibration = 1;
+
   while (1) {
 
     // Check interrupt request variables
