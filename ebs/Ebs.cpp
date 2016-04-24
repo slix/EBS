@@ -24,10 +24,19 @@ void Ebs::start() {
 }
 
 void Ebs::run() {
-  calibrate();
-  // And now nothing
+  // The main loop has to check for requested changes (via interrupts)
+  // and execute the requested functions.
+  // In addition when no action is in progress, it must keep the LEDs blinking correctly
+  update_leds();
   while (1) {
-    delay(1000);
+
+    // TODO: check interrupt request variables
+
+    // LED handling while not in action
+    update_leds();
+
+    // Avoid max CPU usage while idle
+    delay(1);
   }
 }
 
@@ -118,4 +127,35 @@ void Ebs::write_state() {
 
   // Write without cost if data hasn't changed
   EEPROM.put(StoreConst::ADDR_CHECK, write_arr);
+}
+
+void Ebs::update_leds() {
+  unsigned long curr_time = millis();
+
+  // Calibration mode is easy. It stays solid if calibration is enabled.
+  // Solid is easier for the user to understand so that they know when calibration has finished
+  calibration_led.set_state(mode == CALIBRATION);
+
+  // The mode LED glow is also easy.
+  // It stays on for 3000 ms immediately after a change from normal to manual or vice versa
+  // Also blinks during manual mode, so we need to save this for blinking section
+  bool mode_led_glow = curr_time <= time_stop_mode_led_glow;
+
+  // Hard part: LED is on for a while then off for a while to establish a blink pattern
+  const unsigned long TOTAL_LED_CYCLE_TIME = SystemConst::LED_TIME_ON + SystemConst::LED_TIME_OFF;
+  unsigned long curr_time_in_cycle = curr_time % TOTAL_LED_CYCLE_TIME;
+  // "on" time is defined at the beginning of the cycle
+  bool is_blink_cycle_on = curr_time_in_cycle < SystemConst::LED_TIME_ON;
+
+  // Mode LED is on if it should be glowing or if it's on its blink cycle during manual mode
+  mode_led.set_state(mode_led_glow || (mode == MANUAL && is_blink_cycle_on));
+
+  // Battery LED is on if on blink cycle and battery is running low
+  battery_led.set_state(is_blink_cycle_on && is_battery_low());
+}
+
+bool Ebs::is_battery_low() {
+  // TODO: Skeleton, how do we detect battery voltage?
+  // Use LOW_BATTERY_THRESHOLD_VOLTS
+  return true;
 }

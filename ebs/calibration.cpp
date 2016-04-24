@@ -5,7 +5,6 @@
 void Ebs::calibrate() {
   PRINTLN("Starting calibration...");
   PRINTLN("Rotate the pedals until the board LED turns off!");
-  calibration_led.set_state(true);
 
   min_angle = find_min_angle();
 
@@ -92,7 +91,6 @@ void Ebs::calibrate() {
 
   write_state();
   print_state();
-  calibration_led.set_state(false);
 }
 
 

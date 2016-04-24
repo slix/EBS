@@ -31,6 +31,11 @@ class Ebs {
     // Done such that if nothing has changed, nothing is written
     void write_state();
 
+    // Call AS OFTEN AS POSSIBLE. Blinks LEDs using the current time
+    // Should be called on every iteration of every loop in the program
+    // Should be called during every delay: see productive_delay()
+    void update_leds();
+
     // Hardware
     Gyroscope gyro;
     FeedbackServo servo;
@@ -53,6 +58,12 @@ class Ebs {
 
     // LONG algorithm that rotates the servo and finds minimum physical angle
     int find_min_angle();
+
+    // Increment this by MODE_LED_TIME_GLOW after changing normal->manual or manual->normal
+    unsigned long time_stop_mode_led_glow;
+
+    // Returns whether battery is running low
+    bool is_battery_low();
 };
 
 

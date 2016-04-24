@@ -65,6 +65,15 @@ namespace StoreConst {
 namespace SystemConst {
   // Max number of gears our program will store
   const int GEAR_ANGLE_ARR_SIZE = 15;
+
+  // Time in ms after a normal->manual or manual->normal change that the mode change LED will stay on
+  const unsigned long MODE_LED_TIME_GLOW = 3000;
+
+  // Defines LED blink cycles
+  const unsigned long LED_TIME_ON = 100;
+  const unsigned long LED_TIME_OFF = 1900;
+
+  const float LOW_BATTERY_THRESHOLD_VOLTS = 5.9f;
 }
 
 #endif //SYSTEM_CONST_H
