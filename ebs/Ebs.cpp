@@ -193,3 +193,46 @@ void Ebs::toggle_mode() {
   // LED should be on for the next 3000ms
   time_stop_mode_led_glow = millis() + SystemConst::MODE_LED_TIME_GLOW;
 }
+
+void Ebs::upshift() {
+  if(!is_initialized) {
+    PRINTLN("Cannot shift before calibrating. Press button on board to run calibration process.");
+  }
+
+  if (curr_gear == num_gears - 1) {
+    PRINTLN("Already at max gear, cannot upshift");
+  }
+
+  change_gear(curr_gear + 1, curr_gear);
+}
+
+void Ebs::downshift() {
+  if(!is_initialized) {
+    PRINTLN("Cannot shift before calibrating. Press button on board to run calibration process.");
+  }
+
+  if (curr_gear == 0) {
+    PRINTLN("Already at min gear, cannot downshift")
+  }
+
+  change_gear(curr_gear - 1, curr_gear);
+}
+
+void Ebs::change_gear(int to_gear, int from_gear) {
+  int final_angle = gear_to_shift_angle[to_gear];
+
+  int overshoot_by;
+  if (from_gear < to_gear) {
+    overshoot_by = SystemConst::ANGLE_OVERSHOOT_FORWARD_BY;
+  } else {
+    overshoot_by = -1 * SystemConst::ANGLE_OVERSHOOT_BACKWARD_BY;
+  }
+
+  servo.set_angle(final_angle + overshoot_by);
+
+  // Hold this servo angle for x time to wait for the gear to shift
+  delay(SystemConst::HOLD_OVERSHOOT_SEC * 1000);
+
+  servo.set_angle(final_angle);
+}
+

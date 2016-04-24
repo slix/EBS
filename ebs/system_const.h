@@ -74,6 +74,13 @@ namespace SystemConst {
   const unsigned long LED_TIME_OFF = 1900;
 
   const float LOW_BATTERY_THRESHOLD_VOLTS = 5.9f;
+
+  // Overshoot by this many degrees when increasing gear
+  const int ANGLE_OVERSHOOT_FORWARD_BY = 6;
+  // Overshoot by this many degrees when decreasing gear
+  const int ANGLE_OVERSHOOT_BACKWARD_BY = 6;
+  // Hold overshoot position for this many seconds before returning
+  const float HOLD_OVERSHOOT_SEC = 1.0f;
 }
 
 #endif //SYSTEM_CONST_H

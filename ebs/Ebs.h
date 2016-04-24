@@ -39,6 +39,11 @@ class Ebs {
     // Toggle mode from normal to manual (or vice versa)
     void toggle_mode();
 
+    // Upshift/downshift into the appropriate gear
+    // Does not go beyond gears existing on bike
+    void upshift();
+    void downshift();
+
     // Hardware
     Gyroscope gyro;
     FeedbackServo servo;
@@ -67,6 +72,9 @@ class Ebs {
 
     // Returns whether battery is running low
     bool is_battery_low();
+
+    // Change gear to to_gear from from_gear using overshooting
+    void change_gear(int to_gear, int from_gear);
 };
 
 
