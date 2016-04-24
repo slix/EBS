@@ -36,6 +36,9 @@ class Ebs {
     // Should be called during every delay: see productive_delay()
     void update_leds();
 
+    // Use instead of delay() to update LEDs during the delay
+    void productive_delay(unsigned long wait_ms);
+
     // Toggle mode from normal to manual (or vice versa)
     void toggle_mode();
 

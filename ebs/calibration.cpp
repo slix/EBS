@@ -88,7 +88,7 @@ void Ebs::calibrate() {
   // After calibration: put system in a consistent state (at last gear)
   curr_gear = num_gears - 1;
   servo.set_angle(gear_to_shift_angle[curr_gear]);
-  delay(CalibrateConst::END_ADJUST_WAIT * 1000);
+  productive_delay(CalibrateConst::END_ADJUST_WAIT * 1000);
   is_initialized = true;
 
   write_state();
@@ -107,7 +107,7 @@ int Ebs::find_min_angle() {
   // Start at angle we know is reachable
   int start_angle = CalibrateConst::MIDDLE_ANGLE;
   servo.set_angle(start_angle);
-  delay(CalibrateConst::MIDDLE_ROTATE_WAIT * 1000);
+  productive_delay(CalibrateConst::MIDDLE_ROTATE_WAIT * 1000);
 
   unsigned long start_time_ms = millis();
 

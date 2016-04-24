@@ -231,7 +231,7 @@ void Ebs::change_gear(int to_gear, int from_gear) {
   servo.set_angle(final_angle + overshoot_by);
 
   // Hold this servo angle for x time to wait for the gear to shift
-  delay(SystemConst::HOLD_OVERSHOOT_SEC * 1000);
+  productive_delay(SystemConst::HOLD_OVERSHOOT_SEC * 1000);
 
   servo.set_angle(final_angle);
 }
@@ -248,4 +248,14 @@ void Ebs::manual_decrease() {
   int new_angle = old_angle - SystemConst::MANUAL_MODE_DEGREE_CHANGE;
 
   servo.set_angle(constrain(new_angle, min_angle, max_angle));
+}
+
+void Ebs::productive_delay(unsigned long wait_ms) {
+  unsigned long stop_delay_at = millis() + wait_ms;
+  // Just in case this time has already passed, we still want to update LEDs
+  update_leds();
+  while (millis() < stop_delay_at) {
+    update_leds();
+    delay(1);
+  }
 }
