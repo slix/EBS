@@ -17,6 +17,9 @@
 // Use attiny interrupts instead of Uno interrupts
 #define USE_ATTINY_INTERRUPTS ATTINY_MODE
 
+// Use attiny pin definitions instead of Uno definitions
+#define USE_ATTINY_PINS ATTINY_MODE
+
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
   const float ROTATE_DEG_PER_SEC = 3.0f;
