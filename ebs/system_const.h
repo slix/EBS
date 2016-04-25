@@ -20,6 +20,9 @@
 // Use attiny pin definitions instead of Uno definitions
 #define USE_ATTINY_PINS ATTINY_MODE
 
+// Enable button interrupts. Disable if you don't have working interrupts for the platform
+#define ENABLE_INTERRUPTS 1
+
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
   const float ROTATE_DEG_PER_SEC = 3.0f;
