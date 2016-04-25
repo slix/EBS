@@ -27,6 +27,9 @@ class Ebs {
     // Load state into state variables
     void load_state();
 
+    // Load from backup constants
+    void load_from_backup_const();
+
     // Write state variables into EEPROM
     // Done such that if nothing has changed, nothing is written
     void write_state();

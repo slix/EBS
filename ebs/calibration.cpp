@@ -45,6 +45,8 @@ void Ebs::calibrate() {
       last_shift = elapsed_sec;
       // Also reset the rangefind timeout threshold. If we just switched gears, we're nowhere near the max angle
       last_hit_sec = elapsed_sec;
+      // And of course the minimum angle must be at least this detection
+      max_input_angle = angle;
 
       // Check for overflow
       if (curr_gear >= SystemConst::GEAR_ANGLE_ARR_SIZE) {

@@ -79,7 +79,10 @@ namespace StoreConst {
 
 namespace SystemConst {
   // If true, automatically run a calibration on boot, useful for debugging without buttons
-  const bool CALIBRATE_ON_STARTUP = true;
+  const bool CALIBRATE_ON_STARTUP = false;
+
+  // If true, use BackupConst for presets
+  const bool LOAD_FROM_BACKUP = true;
 
   // Max number of gears our program will store
   const int GEAR_ANGLE_ARR_SIZE = 15;
@@ -102,6 +105,15 @@ namespace SystemConst {
 
   // How many degrees to change in manual mode
   const int MANUAL_MODE_DEGREE_CHANGE = 2;
+}
+
+namespace BackupConst {
+  const int MIN_ANGLE = 49;
+  const int MAX_ANGLE = 130;
+
+  const int GEAR_TABLE[] = {49, 69, 84, 95, 109, 128};
+
+  const int NUM_GEARS = sizeof(GEAR_TABLE) / sizeof(GEAR_TABLE[0]);
 }
 
 #endif //SYSTEM_CONST_H
