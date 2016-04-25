@@ -26,6 +26,7 @@ volatile int up_dep = 0;  // Up button pressed
 volatile int up_unp = 0;  // Up button unpressed
 volatile int md_dep = 0;  // Mode button pressed
 volatile int md_unp = 0;  // Mode button unpressed
+volatile int shf_md_chg = 0; // Detect if the mode has changed
 
 void setup_interrupts() {
   // AVR status register
@@ -39,12 +40,9 @@ void setup_interrupts() {
   PCMSK2 |= bit(PCINT23); // Enable interrupts on PCINT23
   PCMSK2 |= bit(PCINT22); // Enable interrupts on PCINT22
   PCMSK2 |= bit(PCINT21); // Enable interrupts on PCINT21
-
-  PRINTLN("Setup interrupts");
 }
 
 ISR(PCINT2_vect) {
-  PRINTLN("HERE");
   
   // PIND is used a register used by the Uno
   cur_PIND = (PIND & bit(7) | PIND & bit(6) | PIND & bit(5));
@@ -72,7 +70,7 @@ ISR(PCINT2_vect) {
 
     // Down depressed, up/md unpressed
     case (B10000000):
-      dwn_dep = 1;
+      dwn_dep = (!shf_md_chg) ? 1 : 0;
       up_unp = (up_dep) ? 1 : 0;
       md_unp = (md_dep) ? 1 : 0;
       break;
@@ -87,7 +85,7 @@ ISR(PCINT2_vect) {
     // Up depressed, down/md unpressed
     case (B01000000):
       dwn_unp = (dwn_dep) ? 1 : 0;
-      up_dep = 1;
+      up_dep = (!shf_md_chg) ? 1 : 0;
       md_unp = (md_dep) ? 1 : 0;
       break;
 
@@ -96,6 +94,7 @@ ISR(PCINT2_vect) {
       dwn_unp = (dwn_dep) ? 1 : 0;
       up_unp = (up_dep) ? 1 : 0;
       md_dep = 1;
+      shf_md_chg = 0;
       break;
 
     // Down/up/md unpressed
@@ -103,6 +102,7 @@ ISR(PCINT2_vect) {
       dwn_unp = (dwn_dep) ? 1 : 0;
       up_unp = (up_dep) ? 1 : 0;
       md_unp = (md_dep) ? 1 : 0;
+      shf_md_chg = 0;
       break;
   }
 
@@ -135,6 +135,7 @@ ISR(PCINT2_vect) {
     requested_calibration = 1;
     md_dep = 0;
     md_unp = 0;
+    shf_md_chg = 1;
     PRINTLN("Mode button pressed");
   }
 }
