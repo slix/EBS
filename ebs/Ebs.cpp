@@ -14,6 +14,9 @@ Ebs::Ebs() :
 
   is_initialized(false),
 
+  // Don't glow at beginning
+  time_stop_mode_led_glow(0),
+
   // Default min/max servo angles for manual mode if loading state fails
   // Guarantees that user can shift even if microcontroller crashes and loses EEPROM while riding
   min_angle(CalibrateConst::ABSOLUTE_MIN_SERVO_ANGLE),
