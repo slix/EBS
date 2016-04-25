@@ -255,6 +255,8 @@ void Ebs::upshift() {
   PRINTLN("Shifting up from " + String(curr_gear+1) + " to " + String(curr_gear+1 + 1));
   change_gear(curr_gear + 1, curr_gear);
   curr_gear++;
+  // Save state to remember gear after power off/on
+  write_state();
 }
 
 void Ebs::downshift() {
@@ -271,6 +273,8 @@ void Ebs::downshift() {
   PRINTLN("Shifting down from " + String(curr_gear+1) + " to " + String(curr_gear+1 - 1));
   change_gear(curr_gear - 1, curr_gear);
   curr_gear--;
+  // Save state to remember gear after power off/on
+  write_state();
 }
 
 void Ebs::change_gear(int to_gear, int from_gear) {
