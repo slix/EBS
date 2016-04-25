@@ -123,6 +123,7 @@ ISR(PCINT2_vect) {
     requested_mode_change = 1;
     up_dep = 0;
     dwn_dep = 0;
+    shf_md_chg = 1;
   }
 
   // Detecting mode btn press
@@ -130,7 +131,6 @@ ISR(PCINT2_vect) {
     requested_calibration = 1;
     md_dep = 0;
     md_unp = 0;
-    shf_md_chg = 1;
   }
 }
 
