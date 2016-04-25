@@ -223,10 +223,12 @@ void Ebs::toggle_mode() {
 void Ebs::upshift() {
   if(!is_initialized) {
     PRINTLN("Cannot shift before calibrating. Press button on board to run calibration process.");
+    return;
   }
 
   if (curr_gear == num_gears - 1) {
     PRINTLN("Already at max gear, cannot upshift");
+    return;
   }
 
   change_gear(curr_gear + 1, curr_gear);
@@ -236,10 +238,12 @@ void Ebs::upshift() {
 void Ebs::downshift() {
   if(!is_initialized) {
     PRINTLN("Cannot shift before calibrating. Press button on board to run calibration process.");
+    return;
   }
 
   if (curr_gear == 0) {
     PRINTLN("Already at min gear, cannot downshift");
+    return;
   }
 
   change_gear(curr_gear - 1, curr_gear);
