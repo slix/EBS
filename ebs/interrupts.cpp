@@ -5,7 +5,6 @@
 #include <USBAPI.h>
 #include "interrupts.h"
 #include "system_const.h"
-#include "internal_serial.h"
 
 // Communication with other files
 volatile int requested_calibration = 0;
@@ -43,7 +42,6 @@ void setup_interrupts() {
 }
 
 ISR(PCINT2_vect) {
-  
   // PIND is used a register used by the Uno
   cur_PIND = (PIND & bit(7) | PIND & bit(6) | PIND & bit(5));
   switch (cur_PIND) {
@@ -111,7 +109,6 @@ ISR(PCINT2_vect) {
     requested_downshift = 1;
     dwn_dep = 0;
     dwn_unp = 0;
-    PRINTLN("Down button pressed");
   }
 
   // Detecting up_btn press
@@ -119,7 +116,6 @@ ISR(PCINT2_vect) {
     requested_upshift = 1;
     up_dep = 0;
     up_unp = 0;
-    PRINTLN("Up button pressed");
   }
 
   // Detecting both dwn_btn and up_btn depress
@@ -127,7 +123,6 @@ ISR(PCINT2_vect) {
     requested_mode_change = 1;
     up_dep = 0;
     dwn_dep = 0;
-    PRINTLN("Shift mode changed");
   }
 
   // Detecting mode btn press
@@ -136,7 +131,6 @@ ISR(PCINT2_vect) {
     md_dep = 0;
     md_unp = 0;
     shf_md_chg = 1;
-    PRINTLN("Mode button pressed");
   }
 }
 
