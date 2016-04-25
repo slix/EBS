@@ -111,7 +111,7 @@ namespace BackupConst {
   const int MIN_ANGLE = 49;
   const int MAX_ANGLE = 130;
 
-  const int GEAR_TABLE[] = {49, 69, 84, 95, 109, 128};
+  const int GEAR_TABLE[] = {54, 68, 84, 94, 108, 125};
 
   const int NUM_GEARS = sizeof(GEAR_TABLE) / sizeof(GEAR_TABLE[0]);
 }
