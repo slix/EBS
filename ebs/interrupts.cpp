@@ -41,6 +41,8 @@ void setup_interrupts() {
 }
 
 ISR(PCINT2_vect) {
+  PRINTLN("HERE");
+  
   // PIND is used a register used by the Uno
   cur_PIND = (PIND & bit(PCINT23) | PIND & bit(PCINT22) |
               PINT & bit(PCINT21));
@@ -107,6 +109,7 @@ ISR(PCINT2_vect) {
     requested_downshift = 1;
     dwn_dep = 0;
     dwn_unp = 0;
+    PRINTLN("Down button pressed");
   }
 
   // Detecting up_btn press
@@ -114,6 +117,7 @@ ISR(PCINT2_vect) {
     requested_upshift = 1;
     up_dep = 0;
     up_unp = 0;
+    PRINTLN("Up button pressed");
   }
 
   // Detecting both dwn_btn and up_btn depress
@@ -121,6 +125,7 @@ ISR(PCINT2_vect) {
     requested_mode_change = 1;
     up_dep = 0;
     dwn_dep = 0;
+    PRINTLN("Shift mode changed");
   }
 
   // Detecting mode btn press
@@ -128,6 +133,7 @@ ISR(PCINT2_vect) {
     requested_calibration = 1;
     md_dep = 0;
     md_unp = 0;
+    PRINTLN("Mode button pressed");
   }
 }
 

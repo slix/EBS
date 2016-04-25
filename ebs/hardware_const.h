@@ -23,14 +23,14 @@ namespace HardwareConst {
   const int SERVO_ATTACH_PIN = 9;
   const int SERVO_FEEDBACK_PIN = A0;
 
-  const int BATTERY_LED_PIN = 3;
-  const int MODE_LED_PIN = 1;
-  const int CALIBRATION_LED_PIN = 10;
+  const int BATTERY_LED_PIN = 12;
+  const int MODE_LED_PIN = 13;
+  const int CALIBRATION_LED_PIN = 11;
 
   // These don't get used due to the complexity of bitshifting for interrupts
-  const int DOWN_BUTTON_PIN = 0;
-  const int UP_BUTTON_PIN = 2;
-  const int CALIBRATION_BUTTON_PIN = 9;
+  const int DOWN_BUTTON_PIN = 7;
+  const int UP_BUTTON_PIN = 6;
+  const int CALIBRATION_BUTTON_PIN = 5;
 #endif
 }
 
