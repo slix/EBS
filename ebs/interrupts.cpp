@@ -17,67 +17,92 @@ void setup_interrupts() {
 }
 #else
 
-// TODO: use USE_ATTINY_INTERRUPTS def to switch between interrupts for the two types of systems
-
 // Shift vars
-volatile uint8_t cur_PINA = 0;
-// FIXME: can just use a char for all these with bit manipulations
+volatile uint8_t cur_PIND = 0;
 volatile int dwn_dep = 0; // Down button pressed
 volatile int dwn_unp = 0; // Down button unpressed
 volatile int up_dep = 0;  // Up button pressed
 volatile int up_unp = 0;  // Up button unpressed
+volatile int md_dep = 0;  // Mode button pressed
+volalite int md_unp = 0;  // Mode button unpressed
 
 void setup_interrupts() {
   // AVR status register
-  SREG |= bit(7); // Enable the Global Interrupt Enable bit
+  //SREG |= bit(7); // Enable the Global Interrupt Enable bit
 
-  // Setup interupt for PCINT[7:0]
-  GIFR  |= bit(PCIF0);   // Clear the PCIFR flags for PCINT[7:0]
-  GIMSK |= bit(PCIE0);   // Enable pin change interrupts for D0 to D7
+  // Setup interrupt for PCINT[23:16]
+  PCIFR  |= bit (PCIF2);  // Clear the PCIFR flags for PCINT[23:16]
+  PCICR  |= bit (PCIE2);  // Enable pin change interrupts for D0 to D7
 
   // Set individual bits on PCINT[7:0]
-  PCMSK0 |= bit(PCINT0); // Enable interrupts on PCINT0
-  PCMSK0 |= bit(PCINT2); // Enable interrupts on PCINT2
-
-  // Setup interrupt for PCINT[11:8]
-  GIFR  |= bit(PCIF1);
-  GIMSK |= bit(PCIE1);
-
-  // Set individual bits on the PCINT[11:8]
-  PCMSK1 |= bit(PCINT9); // Enable interrupts on PCINT9
+  PCMSK2 |= bit(PCINT23); // Enable interrupts on PCINT23
+  PCMSK2 |= bit(PCINT22); // Enable interrupts on PCINT22
+  PCMSK2 |= bit(PCINT21); // Enable interrupts on PCINT21
 }
 
-ISR(PCINT0_vect) {
-  // PINA is used a register used by the ATtiny84
-  cur_PINA = (PINA & bit(PCINT0) | PINA & bit(PCINT2));
-  switch (cur_PINA) {
-    // Up/down shift depressed
-    case (B00000101):
+ISR(PCINT2_vect) {
+  // PIND is used a register used by the Uno
+  cur_PIND = (PIND & bit(PCINT23) | PIND & bit(PCINT22) |
+              PINT & bit(PCINT21));
+  switch (cur_PIND) {
+    // Down/up/md depressed
+    case (B11100000):
       dwn_dep = 1;
       up_dep = 1;
+      md_dep = 1;
       break;
 
-      // Down shift depressed
-    case (B00000001):
+    // Down/up depressed, md unpressed
+    case (B11000000):
+      dwn_dep = 1;
+      up_dep = 1;
+      md_unp = (md_dep) ? 1 : 0;
+      break;
+
+    // Down/md depressed, up unpressed
+    case (B10100000):
       dwn_dep = 1;
       up_unp = (up_dep) ? 1 : 0;
+      md_dep = 1;
       break;
 
-      // Down shift depressed
-    case (B00000100):
+    // Down depressed, up/md unpressed
+    case (B10000000):
+      dwn_dep = 1;
+      up_unp = (up_dep) ? 1 : 0;
+      md_unp = (md_dep) ? 1 : 0;
+      break;
+
+    // Up/md depressed, down unpressed
+    case (B01100000):
       dwn_unp = (dwn_dep) ? 1 : 0;
       up_dep = 1;
+      md_dep = 1;
       break;
 
-      // Down shift unpressed
+    // Up depressed, down/md unpressed
+    case (B01000000):
+      dwn_unp = (dwn_dep) ? 1 : 0;
+      up_dep = 1;
+      md_unp = (md_dep) ? 1 : 0;
+      break;
+
+    // Md depressed, down/up unpressed
+    case (B00100000):
+      dwn_unp = (dwn_dep) ? 1 : 0;
+      up_unp = (up_dep) ? 1 : 0;
+      md_dep = 1;
+      break;
+
+    // Down/up/md unpressed
     case (B00000000):
       dwn_unp = (dwn_dep) ? 1 : 0;
       up_unp = (up_dep) ? 1 : 0;
+      md_unp = (md_dep) ? 1 : 0;
       break;
   }
 
   // Detecting dwn_btn press
-  // sent
   if (dwn_dep && dwn_unp) {
     requested_downshift = 1;
     dwn_dep = 0;
@@ -92,15 +117,18 @@ ISR(PCINT0_vect) {
   }
 
   // Detecting both dwn_btn and up_btn depress
-  // Make sure unpress doesn't cause shifts
-  // TODO: @mattpotok Can you make sure I did this right?
   if (up_dep && dwn_dep) {
     requested_mode_change = 1;
     up_dep = 0;
     dwn_dep = 0;
   }
 
-  // TODO: Calibration button handling
+  // Detecting mode btn press
+  if (md_dep && md_unp) {
+    requested_calibration = 1;
+    md_dep = 0;
+    md_unp = 0;
+  }
 }
 
 #endif
