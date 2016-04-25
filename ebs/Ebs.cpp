@@ -27,6 +27,10 @@ void Ebs::start() {
   setup_interrupts();
   load_state();
   print_state();
+  if (SystemConst::LOAD_FROM_BACKUP) {
+    load_from_backup_const();
+    print_state();
+  }
 }
 
 void Ebs::run() {
@@ -309,4 +313,17 @@ void Ebs::handle_request() {
       manual_decrease();
     }
   }
+}
+
+void Ebs::load_from_backup_const() {
+  // Just in case
+  min_angle = BackupConst::MIN_ANGLE;
+  max_angle = BackupConst::MAX_ANGLE;
+  num_gears = BackupConst::NUM_GEARS;
+
+  for (int i = 0; i < BackupConst::NUM_GEARS; i++) {
+    gear_to_shift_angle[i] = BackupConst::GEAR_TABLE[i];
+  }
+
+  is_initialized = true;
 }
