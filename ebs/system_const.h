@@ -79,7 +79,7 @@ namespace StoreConst {
 
 namespace SystemConst {
   // If true, automatically run a calibration on boot, useful for debugging without buttons
-  const bool CALIBRATE_ON_STARTUP = true;
+  const bool CALIBRATE_ON_STARTUP = false;
 
   // If true, use BackupConst for presets
   const bool LOAD_FROM_BACKUP = true;
