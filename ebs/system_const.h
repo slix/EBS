@@ -40,7 +40,7 @@ namespace CalibrateConst {
 
   // Once we haven't seen new min/max angles for this many seconds, give up finding more gears
   // Servo likely hit physical min/max angle
-  const float RANGEFIND_TIMEOUT_THRESHOLD_SECONDS = 2.5f;
+  const float RANGEFIND_TIMEOUT_THRESHOLD_SECONDS = 5.0f;
 
   // An angle we know is physically reachable
   const int MIDDLE_ANGLE = 90;
