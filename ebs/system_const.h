@@ -3,7 +3,7 @@
 
 #include <avr/io.h>
 
-#define ATTINY_MODE 1
+#define ATTINY_MODE 0
 
 // Enable Serial.h. Disable for the attiny, where it is not available
 #define USE_SERIAL !ATTINY_MODE
@@ -21,7 +21,7 @@
 #define USE_ATTINY_PINS ATTINY_MODE
 
 // Enable button interrupts. Disable if you don't have working interrupts for the platform
-#define ENABLE_INTERRUPTS 1
+#define ENABLE_INTERRUPTS 0
 
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
