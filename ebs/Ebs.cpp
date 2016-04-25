@@ -213,10 +213,10 @@ void Ebs::toggle_mode() {
 
   if (mode == NORMAL) {
     mode = MANUAL;
-    PRINTLN("Changed to manual mode");
+    PRINTLN("Changed to MANUAL mode");
   } else if (mode == MANUAL) {
     mode = NORMAL;
-    PRINTLN("Changed to normal mode");
+    PRINTLN("Changed to NORMAL mode");
   }
 
   // LED should be on for the next 3000ms
@@ -234,6 +234,7 @@ void Ebs::upshift() {
     return;
   }
 
+  PRINTLN("Shifting up from " + String(curr_gear) + " to " + String(curr_gear + 1));
   change_gear(curr_gear + 1, curr_gear);
   curr_gear++;
 }
@@ -249,6 +250,7 @@ void Ebs::downshift() {
     return;
   }
 
+  PRINTLN("Shifting down from " + String(curr_gear) + " to " + String(curr_gear - 1));
   change_gear(curr_gear - 1, curr_gear);
   curr_gear--;
 }
@@ -275,12 +277,16 @@ void Ebs::manual_increase() {
   int old_angle = servo.get_last_written_angle();
   int new_angle = old_angle + SystemConst::MANUAL_MODE_DEGREE_CHANGE;
 
+  PRINTLN("Increasing from angle " + String(old_angle) + " to angle " + String(new_angle));
+
   servo.set_angle(constrain(new_angle, min_angle, max_angle));
 }
 
 void Ebs::manual_decrease() {
   int old_angle = servo.get_last_written_angle();
   int new_angle = old_angle - SystemConst::MANUAL_MODE_DEGREE_CHANGE;
+
+  PRINTLN("Decreasing from angle " + String(old_angle) + " to angle " + String(new_angle));
 
   servo.set_angle(constrain(new_angle, min_angle, max_angle));
 }
