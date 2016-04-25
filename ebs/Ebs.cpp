@@ -217,6 +217,24 @@ void Ebs::toggle_mode() {
   } else if (mode == MANUAL) {
     mode = NORMAL;
     PRINTLN("Changed to NORMAL mode");
+
+    // Need to detect closest gear to correct curr_gear
+    // Unless not initialized, in which case there is no closest gear
+    if (is_initialized) {
+      int curr_angle = servo.get_last_written_angle();
+
+      int least_difference = 181;
+      int gear_least_difference = 0;
+      for (int i = 0; i < num_gears; i++) {
+        int difference = abs(gear_to_shift_angle[i] - curr_angle);
+        if (difference < least_difference) {
+          least_difference = difference;
+          gear_least_difference = i;
+        }
+      }
+      PRINTLN("Detected gear " + String(gear_least_difference) + " as closest to angle " + String(curr_angle));
+      servo.set_angle(gear_to_shift_angle[gear_least_difference]);
+    }
   }
 
   // LED should be on for the next 3000ms
