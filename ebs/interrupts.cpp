@@ -5,6 +5,7 @@
 #include <USBAPI.h>
 #include "interrupts.h"
 #include "system_const.h"
+#include "internal_serial.h"
 
 // Communication with other files
 volatile int requested_calibration = 0;
@@ -24,11 +25,11 @@ volatile int dwn_unp = 0; // Down button unpressed
 volatile int up_dep = 0;  // Up button pressed
 volatile int up_unp = 0;  // Up button unpressed
 volatile int md_dep = 0;  // Mode button pressed
-volalite int md_unp = 0;  // Mode button unpressed
+volatile int md_unp = 0;  // Mode button unpressed
 
 void setup_interrupts() {
   // AVR status register
-  //SREG |= bit(7); // Enable the Global Interrupt Enable bit
+  SREG |= bit(7); // Enable the Global Interrupt Enable bit
 
   // Setup interrupt for PCINT[23:16]
   PCIFR  |= bit (PCIF2);  // Clear the PCIFR flags for PCINT[23:16]
@@ -38,14 +39,15 @@ void setup_interrupts() {
   PCMSK2 |= bit(PCINT23); // Enable interrupts on PCINT23
   PCMSK2 |= bit(PCINT22); // Enable interrupts on PCINT22
   PCMSK2 |= bit(PCINT21); // Enable interrupts on PCINT21
+
+  PRINTLN("Setup interrupts");
 }
 
 ISR(PCINT2_vect) {
   PRINTLN("HERE");
   
   // PIND is used a register used by the Uno
-  cur_PIND = (PIND & bit(PCINT23) | PIND & bit(PCINT22) |
-              PINT & bit(PCINT21));
+  cur_PIND = (PIND & bit(7) | PIND & bit(6) | PIND & bit(5));
   switch (cur_PIND) {
     // Down/up/md depressed
     case (B11100000):
