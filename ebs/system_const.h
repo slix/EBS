@@ -14,6 +14,9 @@
 // Enable SoftwareServo instead (1 on attiny)
 #define USE_SOFTWARESERVO ATTINY_MODE
 
+// Use attiny interrupts instead of Uno interrupts
+#define USE_ATTINY_INTERRUPTS ATTINY_MODE
+
 namespace CalibrateConst {
   // Rate of rotation of derailleur servo
   const float ROTATE_DEG_PER_SEC = 3.0f;

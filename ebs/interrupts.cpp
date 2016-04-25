@@ -4,12 +4,15 @@
 #include <avr/io.h>
 #include <USBAPI.h>
 #include "interrupts.h"
+#include "system_const.h"
 
 // Communication with other files
 volatile int requested_calibration = 0;
 volatile int requested_mode_change = 0;
 volatile int requested_upshift = 0;
 volatile int requested_downshift = 0;
+
+// TODO: use USE_ATTINY_INTERRUPTS def to switch between interrupts for the two types of systems
 
 // Shift vars
 volatile uint8_t cur_PINA = 0;
