@@ -230,6 +230,7 @@ void Ebs::upshift() {
   }
 
   change_gear(curr_gear + 1, curr_gear);
+  curr_gear++;
 }
 
 void Ebs::downshift() {
@@ -242,6 +243,7 @@ void Ebs::downshift() {
   }
 
   change_gear(curr_gear - 1, curr_gear);
+  curr_gear--;
 }
 
 void Ebs::change_gear(int to_gear, int from_gear) {
