@@ -44,8 +44,10 @@ void Ebs::run() {
   // In addition when no action is in progress, it must keep the LEDs blinking correctly
   update_often();
 
-  // FIXME: For testing, always enable calibration
-  requested_calibration = 1;
+  // Useful for testing
+  if (SystemConst::CALIBRATE_ON_STARTUP) {
+    requested_calibration = 1;
+  }
 
   while (1) {
 

@@ -69,6 +69,9 @@ namespace StoreConst {
 }
 
 namespace SystemConst {
+  // If true, automatically run a calibration on boot, useful for debugging without buttons
+  const bool CALIBRATE_ON_STARTUP = true;
+
   // Max number of gears our program will store
   const int GEAR_ANGLE_ARR_SIZE = 15;
 
