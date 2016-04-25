@@ -62,7 +62,9 @@ void Ebs::calibrate() {
     }
 
     // No updated max for a while means we reached max
-    if (elapsed_sec - last_hit_sec >= CalibrateConst::RANGEFIND_TIMEOUT_THRESHOLD_SECONDS) {
+    // Make sure at least one gear shift has occurred before giving up
+    if (num_gears > 1 &&
+        elapsed_sec - last_hit_sec >= CalibrateConst::RANGEFIND_TIMEOUT_THRESHOLD_SECONDS) {
       PRINTLN("Detected max physical servo angle at " + String(max_input_angle));
       max_angle = max_input_angle;
       break;
