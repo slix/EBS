@@ -12,6 +12,11 @@ volatile int requested_mode_change = 0;
 volatile int requested_upshift = 0;
 volatile int requested_downshift = 0;
 
+#if !ENABLE_INTERRUPTS
+void setup_interrupts() {
+}
+#else
+
 // TODO: use USE_ATTINY_INTERRUPTS def to switch between interrupts for the two types of systems
 
 // Shift vars
@@ -97,3 +102,5 @@ ISR(PCINT0_vect) {
 
   // TODO: Calibration button handling
 }
+
+#endif
