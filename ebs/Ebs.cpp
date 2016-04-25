@@ -232,7 +232,7 @@ void Ebs::toggle_mode() {
           gear_least_difference = i;
         }
       }
-      PRINTLN("Detected gear " + String(gear_least_difference) + " as closest to angle " + String(curr_angle));
+      PRINTLN("Detected gear " + String(gear_least_difference+1) + " as closest to angle " + String(curr_angle));
       servo.set_angle(gear_to_shift_angle[gear_least_difference]);
     }
   }
@@ -252,7 +252,7 @@ void Ebs::upshift() {
     return;
   }
 
-  PRINTLN("Shifting up from " + String(curr_gear) + " to " + String(curr_gear + 1));
+  PRINTLN("Shifting up from " + String(curr_gear+1) + " to " + String(curr_gear+1 + 1));
   change_gear(curr_gear + 1, curr_gear);
   curr_gear++;
 }
@@ -268,7 +268,7 @@ void Ebs::downshift() {
     return;
   }
 
-  PRINTLN("Shifting down from " + String(curr_gear) + " to " + String(curr_gear - 1));
+  PRINTLN("Shifting down from " + String(curr_gear+1) + " to " + String(curr_gear+1 - 1));
   change_gear(curr_gear - 1, curr_gear);
   curr_gear--;
 }
